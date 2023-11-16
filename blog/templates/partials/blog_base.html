@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.rtl.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>نیک کالا مگ</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark blog-navbar"><!-- start navbar -->
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index_blog' %}">
+            <img src="/static/images/blog-logo.jpg">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#blog-nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="blog-nav">
+            <ul class="navbar-nav w-100 text-center">
+                <li class="nav-item custom-nav-item"><a class="nav-link" href="{% url 'core:index' %}">صفحه اصلی</a></li>
+                <li class="nav-item custom-nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                                                 data-bs-toggle="dropdown">تکنولوژی و کالای دیجیتال</a>
+                    <div class="dropdown-menu custom-blog-dropdown-menu"><!-- start sub menu -->
+                        <a href="{% url 'post_blog' %}" class="dropdown-item">کالای الکترونیک</a>
+                        <a href="{% url 'post_blog' %}" class="dropdown-item">اپلیکیشن و نرم‌افزار</a>
+                        <a href="{% url 'post_blog' %}" class="dropdown-item">فناوری اطلاعات و ارتباطات</a>
+                        <a href="{% url 'post_blog' %}" class="dropdown-item">هوش مصنوعی و رباتیک</a>
+                    </div><!-- end sub menu -->
+                </li>
+                <li class="nav-item custom-nav-item"><a class="nav-link" href="{% url 'post_blog' %}">بازی و سرگرمی</a>
+                </li>
+                <li class="nav-item custom-nav-item"><a class="nav-link" href="{% url 'post_blog' %}">کتاب و ادبیات</a>
+                </li>
+                <li class="nav-item custom-nav-item"><a class="nav-link" href="{% url 'post_blog' %}">فرهنگ و هنر</a></li>
+                <li class="nav-item custom-nav-item"><a class="nav-link" href="{% url 'post_blog' %}"> سبک زندگی</a></li>
+            </ul>
+            <form>
+                <div class="search-in-result  position-relative">
+                    <input type="search" class="form-control" placeholder="جستجو">
+                </div>
+            </form>
+        </div>
+    </div>
+</nav><!-- end navbar -->
+
+{% block content_blog %}
+{% endblock %}
+<div class="blog-footer"><!-- start blog footer -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blog-footer-menu">
+                    <ul class="w-100 d-flex ps-0">
+                        <li><a href="index.html">نیک کالا</a></li>
+                        <li><a href="about-us.html">شرایط باز نشر</a></li>
+                        <li><a href="about-us.html">فرصت های همکاری</a></li>
+                        <li><a href="about-us.html">رفع مسئولیت</a></li>
+                    </ul>
+                </div>
+                <p> هر گونه کپی‌برداری از مطالب نیک کالا مگ بدون کسب مجوز مکتوب ممنوع است.
+                    حقوق این سایت به یاس دیزاین تعلق دارد.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group email-box">
+                    <input type="email" class="form-control form-control-lg"
+                           placeholder=" برای عضویت در خبرنامه ایمیل خود را وارد کنید">
+                    <button type="submit" class="btn btn-danger font-13 px-3">ارسال</button>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="social-list text-end mt-4">
+                            <a href="#"><i class="fab fa-instagram social-media"></i></a>
+                            <a href="#"><i class="fab fa-telegram social-media"></i></a>
+                            <a href="#"><i class="fab fa-linkedin social-media"></i></a>
+                            <a href="#"><i class="fab fa-twitter social-media"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="topbutton"><i class="fa fa-chevron-up"></i></a><!-- top button -->
+</div><!-- end blog footer -->
+
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/blog-js.js"></script>
+</body>
+</html>
