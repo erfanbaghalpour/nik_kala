@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.urls import reverse
 
 class Product(models.Model):
     title = models.CharField(max_length=300)
@@ -13,3 +13,8 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.price})"
+
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[self.id])
+
+
