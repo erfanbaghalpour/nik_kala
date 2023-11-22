@@ -14,3 +14,15 @@ def index(request):
         # 'average_ratings': avg_rating,
     }
     return render(request, 'core/index.html', context=context)
+
+
+def contact_us(request):
+    return render(request, 'core/contact_us.html')
+
+
+def site_header_component(request):
+    return render(request, 'partials/site_header_component.html', {})
+
+
+def site_footer_component(request):
+    return render(request, 'partials/site_footer_component.html', {})
