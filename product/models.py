@@ -30,12 +30,25 @@ class ProductInformation(models.Model):
     #     verbose_name_plural = 'دسته بندی ها'
 
 
+class ProductBrand(models.Model):
+    title = models.CharField(max_length=300, db_index=True)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    # class Meta:
+    #     verbose_name = 'دسته بندی'
+    #     verbose_name_plural = 'دسته بندی ها'
+
+
 class Product(models.Model):
     title = models.CharField(max_length=300)
     category = models.ManyToManyField(ProductCategory,
                                       related_name='product_categories')
     product_information = models.OneToOneField(ProductInformation, on_delete=models.CASCADE,
                                                related_name='product_information')
+    brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, null=True, blank=True)
     # product_tags = models.ManyToManyField(ProductTag)
     price = models.IntegerField()
     # rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)

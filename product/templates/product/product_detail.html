@@ -171,8 +171,8 @@
                     </div>
                     <div class="col-lg-5 col-md-8 product-details"><!-- start product details -->
                         <p>{{ product_detail.title }}</p>
-                        <p class="d-inline-block">دسته بندی : گوشی موبایل</p>
-                        <p class="d-inline-block ms-5">برند : سامسونگ</p>
+                        <p class="d-inline-block">دسته بندی : {{ product_detail.category.first }}</p>
+                        <p class="d-inline-block ms-5">برند : {{ product_detail.brand.title }}</p>
                         <p>انتخاب رنگ :</p>
 
                         <label class="select-color">
