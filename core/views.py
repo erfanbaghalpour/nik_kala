@@ -16,8 +16,7 @@ def index(request):
     return render(request, 'core/index.html', context=context)
 
 
-def contact_us(request):
-    return render(request, 'core/contact_us.html')
+
 
 
 def site_header_component(request):
