@@ -13,22 +13,37 @@
                         <form action="{% url 'contact_us:contact-us' %}" method="post">
                             {% csrf_token %}
                             <div class="row px-2">
-                                <div class="col-6">
+                          {% comment %}      <div class="col-6">
                                     <div class="mb-3 mt-3">
                                         <input type="text" name="title" class="form-control form-control-lg"
                                                placeholder="عنوان پیام">
                                     </div>
-                                </div>
+                                </div>{% endcomment %}
                                 <div class="col-6">
                                     <div class="mb-3 mt-3">
-                                        <input type="text" name="full_name" class="form-control form-control-lg"
-                                               placeholder="نام و نام خانوادگی ">
+                                        {% comment %}<input type="text" name="title" class="form-control form-control-lg"
+                                               placeholder="عنوان پیام">{% endcomment %}
+                                        {{ contact_form.title.label_tag }}
+                                        {{ contact_form.title }}
+                                        {{ contact_form.title.errors }}
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3 mt-3">
-                                        <input type="email" name="email" class="form-control form-control-lg"
-                                               placeholder="ایمیل">
+                                        {% comment %}<input type="text" name="full_name" class="form-control form-control-lg"
+                                               placeholder="نام و نام خانوادگی ">{% endcomment %}
+                                        {{ contact_form.full_name.label_tag }}
+                                        {{ contact_form.full_name }}
+                                        {{ contact_form.full_name.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3 mt-3">
+                                        {% comment %}<input type="email" name="email" class="form-control form-control-lg"
+                                               placeholder="ایمیل">{% endcomment %}
+                                        {{ contact_form.email.label_tag }}
+                                        {{ contact_form.email }}
+                                        {{ contact_form.email.errors }}
                                     </div>
                                 </div>
                                 <!--<div class="col-6">
@@ -38,8 +53,11 @@
                                 </div>-->
                                 <div class="col-12">
                                     <div class="mb-3 mt-3">
-                                        <textarea name="text" class="form-control" rows="5"
-                                                  placeholder="متن پیام شما"></textarea>
+                                        {% comment %}<textarea name="text" class="form-control" rows="5"
+                                                  placeholder="متن پیام شما"></textarea>{% endcomment %}
+                                        {{ contact_form.message.label_tag }}
+                                        {{ contact_form.message }}
+                                        {{ contact_form.message.errors }}
                                     </div>
                                 </div>
                                 <div class="col-12">
