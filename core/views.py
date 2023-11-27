@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from product.models import Product
 from django.db.models import Avg
+from django.views.generic.base import TemplateView
+from django.views import View
 
 
 def index(request):
@@ -16,7 +18,15 @@ def index(request):
     return render(request, 'core/index.html', context=context)
 
 
-
+# class HomeView(View):
+#     def get(self, request):
+#         products = Product.objects.all().order_by('-title')
+#         context = {
+#             'product': products
+#         }
+#         return render(request, 'core/index.html', context=context)
+# class HomeView(TemplateView):
+#     template_name = 'core/index.html'
 
 
 def site_header_component(request):
