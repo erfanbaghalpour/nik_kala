@@ -282,12 +282,12 @@
                                 <p class="m-3 font-13">{{ product_detail.title }}</p>
                                 <p class="font-14 line-height mx-3 text-justify">{{ product_detail.short_description }}</p>
                                 {% thumbnail product_detail.image "1400x1050" as im %}
-                                                <img
-                                                        src="{{ im.url }}"
-                                                        width="{{ im.width }}"
-                                                        class="mobile-banner"
-                                                        height="{{ im.height }}"/>
-                                            {% endthumbnail %}
+                                    <img
+                                            src="{{ im.url }}"
+                                            width="{{ im.width }}"
+                                            class="mobile-banner"
+                                            height="{{ im.height }}"/>
+                                {% endthumbnail %}
                                 <p class="font-14 line-height mx-3 text-justify">{{ product_detail.long_description }}</p>
                             </div><!-- end description -->
 
