@@ -187,9 +187,55 @@
                                 {% include 'partials/include/product_item_partial.html' with product=product %}
                             {% endfor %}
                         </div>
+
                     </div>
                 </div>
+                <!-- start pagination -->
+                {% if products.has_other_pages %}
+                    <div class="container custom-pagination">
+                        <div class="row justify-content-center d-flex mb-3">
+                            <div class="col text-center">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {% if products.has_previous %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ products.previous_page_number }}"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% for page in products.paginator.page_range %}
+                                            {% if products.number == page %}
+                                                <li class="page-item active"><a class="page-link"
+                                                                                href="?page={{ page }}">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?page={{ page }}">{{ page }}</a></li>
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                        {% if products.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ products.next_page_number }}"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div><!-- end pagination -->
+                {% endif %}
+
             </div><!-- end product slider -->
+
 
             <div class="row"><!-- start ads -->
                 <div class="col-xxl-6 col-xl-6 col-md-6 mb-3"><a href="#" target="_blank" class="d-block w-100"><img

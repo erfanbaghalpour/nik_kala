@@ -47,7 +47,7 @@ class Product(models.Model):
     category = models.ManyToManyField(ProductCategory,
                                       related_name='product_categories')
     product_information = models.OneToOneField(ProductInformation, on_delete=models.CASCADE,
-                                               related_name='product_information')
+                                               related_name='product_information', null=True)
     brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, null=True, blank=True)
     # product_tags = models.ManyToManyField(ProductTag)
     price = models.IntegerField()

@@ -4,14 +4,18 @@ from product.models import Product
 from django.db.models import Avg
 from django.views.generic.base import TemplateView
 from django.views import View
+from django.core.paginator import Paginator
 
 
 def index(request):
     products = Product.objects.all().order_by('-title')
     number_of_products = products.count()
     # avg_rating = products.aggregate(Avg('rating'))
+    paginator = Paginator(products, 3)
+    page_number = request.GET.get('page')
+    products_list = paginator.get_page(page_number)
     context = {
-        'products': products,
+        'products': products_list,
         'total_number_of_products': number_of_products,
         # 'average_ratings': avg_rating,
     }
