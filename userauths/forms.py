@@ -12,6 +12,14 @@ class UserRegisterForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "تکرار کلمه عبور "}))
     remember_me = forms.BooleanField(widget=forms.CheckboxInput)
 
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 == password2:
+            return password2
+        raise ValidationError('کلمه عبور و تکرار کلمه عبور یکسان نیست!')
+
     class Meta:
         model = User
         fields = ['username', 'email']

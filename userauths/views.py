@@ -27,3 +27,19 @@ def register_view(request):
     return render(request, 'userauths/sign-up.html', context=context)
 
 
+class RegisterView(View):
+    def get(self, request):
+        register_form = UserRegisterForm
+        context = {
+            'form': register_form,
+        }
+        return render(request, 'userauths/sign-up.html', context=context)
+
+    def post(self, request):
+        register_form = UserRegisterForm(request.POST)
+        if register_form.is_valid():
+            pass
+        context = {
+            'form': register_form,
+        }
+        return render(request, 'userauths/sign-up.html', context=context)
