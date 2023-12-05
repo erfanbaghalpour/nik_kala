@@ -5,7 +5,7 @@ from django.db import models
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=False)
     email_active_code = models.CharField(max_length=100, editable=False, unique=True, null=True)
-    mobile = models.CharField(max_length=11)
+    mobile = models.CharField(max_length=11, null=True, blank=True)
     username = models.CharField(max_length=100)
 
     USERNAME_FIELD = 'email'
