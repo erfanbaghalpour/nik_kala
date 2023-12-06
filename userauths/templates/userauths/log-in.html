@@ -17,20 +17,25 @@
             <img src="/static/images/logo.png">
             <form>
 
-                <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
-                    <input type="tel" class="form-control form-control-lg signup-login-input"
-                           placeholder="شماره موبایل ">
+                <div class="input-group signup-login-form mobile-number form-control form-control-lg signup-login-input">
+                    <!-- start mobile number input -->
+                    {% comment %}<input type="tel" class="form-control form-control-lg signup-login-input"
+                           placeholder="شماره موبایل ">{% endcomment %}
+                    {{ login_form.email }}
                 </div><!-- end mobile number input -->
 
-                <div class="input-group signup-login-form password"><!-- start password input -->
-                    <input type="password" class="form-control form-control-lg signup-login-input"
-                           placeholder="رمز عبور">
+                <div class="input-group signup-login-form password form-control form-control-lg signup-login-input">
+                    <!-- start password input -->
+                    {% comment %}input type="password" class="form-control form-control-lg signup-login-input"
+                           placeholder="رمز عبور">{% endcomment %}
+                    {{ login_form.password1 }}
                 </div><!-- end password input -->
 
                 <div class="signup-login-form">
                     <div class="form-check"><!-- start input check -->
-                        <input class="form-check-input form-check-input-custom" type="checkbox" id="customCheck"
-                               checked>
+                        {% comment %}<input class="form-check-input form-check-input-custom" type="checkbox" id="customCheck"
+                               checked>{% endcomment %}
+                        {{ login_form.remember_me }}
                         <label class="form-check-label line-height ps-1" for="customCheck">
                             مرا به خاطر داشته باش
                         </label>
@@ -41,7 +46,8 @@
                     ورود
                 </button>
 
-                <p>کاربر جدید هستید؟ <a href="signup.html" class="underline">ثبت‌ نام در نیک کالا </a></p>
+                <p>کاربر جدید هستید؟ <a href="{% url 'userauths:sign-up' %}" class="underline">ثبت‌ نام در نیک کالا </a>
+                </p>
                 <p>رمز عبور خود را فراموش کرده اید ؟<a href="remember-password.html" class="underline"> بازیابی رمز
                     عبور </a></p>
 
@@ -52,6 +58,6 @@
 
 
 <script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/ js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,12 +1,13 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm
+from userauths.forms import UserRegisterForm, UserLoginForm
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib import messages
 from django.views.generic import View
 from userauths.models import User
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.http import Http404
 
 
 def register_view(request):
@@ -45,11 +46,11 @@ class RegisterView(View):
             if user:
                 register_form.add_error('email', 'ایمیل وارد شده تکراری می باشد')
             else:
-                # new_user = User(email=user_email, email_active_code=get_user_model(72), is_active=False,
-                #                 username=user_email)
-                new_user = User(email=user_email,
-                                email_active_code=get_user_model().objects.make_random_password(length=72),
-                                is_active=False, username=user_email)
+                new_user = User(email=user_email, email_active_code=get_random_string(72), is_active=False,
+                                username=user_email)
+                # new_user = User(email=user_email,
+                #                 email_active_code=get_user_model().objects.make_random_password(length=72),
+                #                 is_active=False, username=user_email)
                 new_user.set_password(user_password)
                 new_user.save()
                 return redirect(reverse('userauths:log-in'))
@@ -61,11 +62,28 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        login_form = UserRegisterForm
+        login_form = UserLoginForm()
         context = {
-            'form': login_form,
+            'login_form': login_form,
         }
         return render(request, 'userauths/log-in.html', context=context)
 
     def post(self, request):
         pass
+
+
+class ActivateAccountView(View):
+    def get(self, request, email_active_code):
+        user: User = User.objects.filter(email_active_code__iexact=email_active_code).first()
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(72)
+                user.save()
+                # todo: show success message to user
+                return redirect(reverse('userauths:log-in'))
+            else:
+                # todo: show your account is activated message to user
+                print('')
+
+        raise Http404
