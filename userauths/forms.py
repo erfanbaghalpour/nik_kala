@@ -25,11 +25,11 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email']
 
 
-class UserLoginForm(UserCreationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "نام کاربری"}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "ایمیل"}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": " کلمه عبور"}))
-    remember_me = forms.BooleanField(widget=forms.CheckboxInput)
+class UserLoginForm(forms.Form):
+    # username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "نام کاربری"}))
+    email_log = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "ایمیل"}))
+    password_log = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": " کلمه عبور"}))
+    # remember_me = forms.BooleanField(widget=forms.CheckboxInput)
 
     class Meta:
         model = User

@@ -15,32 +15,32 @@
     <div class="row">
         <div class="col-10 col-md-7 col-lg-5 signup-login-box"><!-- start signup & login box -->
             <img src="/static/images/logo.png">
-            <form>
-
+            <form method="post" action="{% url 'userauths:log-in' %}">
+                {% csrf_token %}
                 <div class="input-group signup-login-form mobile-number form-control form-control-lg signup-login-input">
                     <!-- start mobile number input -->
                     {% comment %}<input type="tel" class="form-control form-control-lg signup-login-input"
                            placeholder="شماره موبایل ">{% endcomment %}
-                    {{ login_form.email }}
+                    {{ login_form.email_log }}
                 </div><!-- end mobile number input -->
 
                 <div class="input-group signup-login-form password form-control form-control-lg signup-login-input">
                     <!-- start password input -->
                     {% comment %}input type="password" class="form-control form-control-lg signup-login-input"
                            placeholder="رمز عبور">{% endcomment %}
-                    {{ login_form.password1 }}
+                    {{ login_form.password_log }}
                 </div><!-- end password input -->
 
-                <div class="signup-login-form">
+{% comment %}                <div class="signup-login-form">
                     <div class="form-check"><!-- start input check -->
-                        {% comment %}<input class="form-check-input form-check-input-custom" type="checkbox" id="customCheck"
-                               checked>{% endcomment %}
+                                                <input class="form-check-input form-check-input-custom form-check-label line-height ps-1" type="checkbox" id="customCheck"
+                               checked>
                         {{ login_form.remember_me }}
                         <label class="form-check-label line-height ps-1" for="customCheck">
                             مرا به خاطر داشته باش
                         </label>
                     </div><!-- end input check -->
-                </div>
+                </div>{% endcomment %}
 
                 <button type="submit" class="btn btn-danger d-block font-12 mx-auto mb-4 login-btn"><!-- login btn -->
                     ورود
@@ -58,6 +58,6 @@
 
 
 <script src="/static/js/jquery.min.js"></script>
-<script src="/static/ js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

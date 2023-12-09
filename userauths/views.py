@@ -1,13 +1,17 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from userauths.forms import UserRegisterForm, UserLoginForm
-from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.contrib import messages
 from django.views.generic import View
 from userauths.models import User
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.http import Http404
+from django.conf import settings
+
+
+# Userr = settings.AUTH_USER_MODEL
 
 
 def register_view(request):
@@ -59,17 +63,36 @@ class RegisterView(View):
         }
         return render(request, 'userauths/sign-up.html', context=context)
 
-
-class LoginView(View):
-    def get(self, request):
+def login_view(request: HttpRequest):
+    if request.method == 'POST':
+        login_form = UserLoginForm(request.POST)
+        if login_form.is_valid():
+            user_email = login_form.cleaned_data.get('email_log')
+            user_pass = login_form.cleaned_data.get('password_log')
+            user = User.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                if not user.is_active:
+                    login_form.add_error('email_log', 'حساب کاربری شما فعال نشده است')
+                else:
+                    is_password_correct = user.check_password(user_pass)
+                    if is_password_correct:
+                        login(request, user)
+                        return redirect(reverse('core:index'))
+                    else:
+                        login_form.add_error('email', 'کلمه عبور اشتباه است')
+            else:
+                login_form.add_error('email', 'کاربری با مشخصات وارد شده یافت نشد')
+    else:
         login_form = UserLoginForm()
-        context = {
-            'login_form': login_form,
-        }
-        return render(request, 'userauths/log-in.html', context=context)
 
-    def post(self, request):
-        pass
+    context = {
+        'login_form': login_form
+    }
+
+    return render(request, 'userauths/log-in.html', context)
+
+
+
 
 
 class ActivateAccountView(View):
@@ -87,3 +110,38 @@ class ActivateAccountView(View):
                 print('')
 
         raise Http404
+
+
+class LoginView(View):
+    def get(self, request):
+        login_form = UserLoginForm()
+        context = {
+            'login_form': login_form
+        }
+
+        return render(request, 'userauths/log-in.html', context)
+
+    def post(self, request: HttpRequest):
+        login_form = UserLoginForm(request.POST)
+        if login_form.is_valid():
+            user_email = login_form.cleaned_data.get('email_log')
+            user_pass = login_form.cleaned_data.get('password_log')
+            user: User = User.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                if not user.is_active:
+                    login_form.add_error('email_log', 'حساب کاربری شما فعال نشده است')
+                else:
+                    is_password_correct = user.check_password(user_pass)
+                    if is_password_correct:
+                        login(request, user)
+                        return redirect(reverse('core:index'))
+                    else:
+                        login_form.add_error('email_log', 'کلمه عبور اشتباه است')
+            else:
+                login_form.add_error('email_log', 'کاربری با مشخصات وارد شده یافت نشد')
+
+        context = {
+            'login_form': login_form
+        }
+
+        return render(request, 'userauths/log-in.html', context)
