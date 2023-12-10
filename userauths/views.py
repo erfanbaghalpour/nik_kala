@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm, UserLoginForm
+from userauths.forms import UserRegisterForm, UserLoginForm, UserForgetPasswordForm, UserResetPasswordForm
 from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.contrib import messages
 from django.views.generic import View
@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.http import Http404
 from django.conf import settings
+from utils.email_service import send_email
 
 
 # Userr = settings.AUTH_USER_MODEL
@@ -57,11 +58,13 @@ class RegisterView(View):
                 #                 is_active=False, username=user_email)
                 new_user.set_password(user_password)
                 new_user.save()
+                send_email('فعال سازی حساب کاربری', new_user.email, {'user': new_user}, 'email/active_account.html')
                 return redirect(reverse('userauths:log-in'))
         context = {
             'form': register_form,
         }
         return render(request, 'userauths/sign-up.html', context=context)
+
 
 def login_view(request: HttpRequest):
     if request.method == 'POST':
@@ -90,9 +93,6 @@ def login_view(request: HttpRequest):
     }
 
     return render(request, 'userauths/log-in.html', context)
-
-
-
 
 
 class ActivateAccountView(View):
@@ -145,3 +145,56 @@ class LoginView(View):
         }
 
         return render(request, 'userauths/log-in.html', context)
+
+
+class ForgetPassword(View):
+    def get(self, request):
+        forget_password_form = UserForgetPasswordForm()
+        context = {
+            'forget_password_form': forget_password_form
+        }
+        return render(request, 'userauths/remember-password.html', context=context)
+
+    def post(self, request: HttpRequest):
+        forget_password_form = UserForgetPasswordForm(request.POST)
+        if forget_password_form.is_valid():
+            user_email = forget_password_form.cleaned_data.get('email_password')
+            user = User.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                pass
+        context = {
+            'forget_password_form': forget_password_form
+        }
+        return render(request, 'userauths/remember-password.html', context=context)
+
+
+class ResetPasswordView(View):
+    def get(self, request: HttpRequest, active_code):
+        user: User = User.objects.filter(email_active_code__iexact=active_code).first()
+        if user is None:
+            return redirect(reverse('userauths:log-in'))
+        reset_password_form = UserResetPasswordForm()
+        context = {
+            'reset_password_form ': reset_password_form,
+            'user': user
+        }
+        return render(request, 'userauths/reset-password.html', context=context)
+
+    def post(self, request: HttpRequest, active_code):
+        reset_password_form = UserResetPasswordForm(request.POST)
+        user: User = User.objects.filter(email_active_code__iexact=active_code).first()
+        if reset_password_form.is_valid():
+            if user is None:
+                return redirect(reverse('userauths:log-in'))
+            user_new_password = reset_password_form.cleaned_data.get('password1')
+            user.set_password(user_new_password)
+            user.email_active_code = get_random_string(72)
+            user.is_active = True
+            user.save()
+            return redirect(reverse('userauths:log-in'))
+
+        context = {
+            'reset_password_form ': reset_password_form,
+            'user': user
+        }
+        return render(request, 'userauths/reset-password.html', context=context)

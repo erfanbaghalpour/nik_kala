@@ -31,7 +31,7 @@
                     {{ login_form.password_log }}
                 </div><!-- end password input -->
 
-{% comment %}                <div class="signup-login-form">
+                {% comment %}                <div class="signup-login-form">
                     <div class="form-check"><!-- start input check -->
                                                 <input class="form-check-input form-check-input-custom form-check-label line-height ps-1" type="checkbox" id="customCheck"
                                checked>
@@ -48,7 +48,8 @@
 
                 <p>کاربر جدید هستید؟ <a href="{% url 'userauths:sign-up' %}" class="underline">ثبت‌ نام در نیک کالا </a>
                 </p>
-                <p>رمز عبور خود را فراموش کرده اید ؟<a href="remember-password.html" class="underline"> بازیابی رمز
+                <p>رمز عبور خود را فراموش کرده اید ؟<a href="{% url 'userauths:forget-pass' %}" class="underline">
+                    بازیابی رمز
                     عبور </a></p>
 
             </form>

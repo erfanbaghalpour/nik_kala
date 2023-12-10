@@ -29,8 +29,26 @@ class UserLoginForm(forms.Form):
     # username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "نام کاربری"}))
     email_log = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "ایمیل"}))
     password_log = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": " کلمه عبور"}))
+
     # remember_me = forms.BooleanField(widget=forms.CheckboxInput)
 
     class Meta:
         model = User
         fields = ['username', 'email']
+
+
+class UserForgetPasswordForm(forms.Form):
+    email_password = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "ایمیل"}))
+
+    class Meta:
+        model = User
+        fields = ['email']
+
+
+class UserResetPasswordForm(forms.Form):
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": " کلمه عبور"}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "تکرار کلمه عبور "}))
+
+    class Meta:
+        model = User
+        fields = ['email']
