@@ -58,7 +58,7 @@ class RegisterView(View):
                 #                 is_active=False, username=user_email)
                 new_user.set_password(user_password)
                 new_user.save()
-                send_email('فعال سازی حساب کاربری', new_user.email, {'user': new_user}, 'email/active_account.html')
+                send_email('فعال سازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/active_account.html')
                 return redirect(reverse('userauths:log-in'))
         context = {
             'form': register_form,
@@ -161,7 +161,8 @@ class ForgetPassword(View):
             user_email = forget_password_form.cleaned_data.get('email_password')
             user = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
-                pass
+                send_email('فعال سازی حساب کاربری', user.email, {'user': user}, 'emails/forgot_password.html')
+                return redirect(reverse('core:index'))
         context = {
             'forget_password_form': forget_password_form
         }
@@ -198,3 +199,9 @@ class ResetPasswordView(View):
             'user': user
         }
         return render(request, 'userauths/reset-password.html', context=context)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('userauths:log-in'))
