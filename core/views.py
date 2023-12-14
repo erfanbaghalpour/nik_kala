@@ -6,6 +6,8 @@ from django.views.generic.base import TemplateView
 from django.views import View
 from django.core.paginator import Paginator
 
+from site_module.models import SiteSetting
+
 
 def index(request):
     products = Product.objects.all().order_by('-title')
@@ -34,8 +36,27 @@ def index(request):
 
 
 def site_header_component(request):
-    return render(request, 'partials/site_header_component.html', {})
+    setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+    context = {
+        'site_setting': setting
+    }
+    return render(request, 'partials/site_header_component.html', context=context)
 
 
 def site_footer_component(request):
-    return render(request, 'partials/site_footer_component.html', {})
+    setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+    context = {
+        'site_setting': setting
+    }
+    return render(request, 'partials/site_footer_component.html', context=context)
+
+
+class AboutView(TemplateView):
+    template_name = 'core/about_us.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+        context['site_setting'] = setting
+
+        return context

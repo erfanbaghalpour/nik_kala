@@ -16,28 +16,28 @@
             <div class="col-lg-2 col-sm-6 footer-box">
                 <p>با نیک کالا </p>
                 <ul class="ps-0">
-                    <li class="mb-3"><a href="contact-us.html">اتاق خبر نیک کالا</a></li>
-                    <li class="mb-3"><a href="contact-us.html">فرصت های شغلی</a></li>
-                    <li class="mb-3"><a href="contact-us.html">تماس با نیک کالا</a></li>
-                    <li class="mb-3"><a href="contact-us.html">درباره نیک کالا</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">اتاق خبر نیک کالا</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">فرصت های شغلی</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">تماس با نیک کالا</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">درباره نیک کالا</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 col-sm-6 footer-box">
                 <p>خدمات مشتریان</p>
                 <ul class="ps-0">
-                    <li class="mb-3"><a href="contact-us.html">پرسش‌های متداول</a></li>
-                    <li class="mb-3"><a href="contact-us.html">شرایط استفاده</a></li>
-                    <li class="mb-3"><a href="contact-us.html">حریم خصوصی</a></li>
-                    <li class="mb-3"><a href="contact-us.html">گزارش تخلف</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">پرسش‌های متداول</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">شرایط استفاده</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">حریم خصوصی</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">گزارش تخلف</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-sm-6 footer-box">
                 <p>راهنمای خرید از نیک کالا</p>
                 <ul class="ps-0">
-                    <li class="mb-3"><a href="contact-us.html">نحوه ثبت سفارش</a></li>
-                    <li class="mb-3"><a href="contact-us.html">رویه ارسال سفارش</a></li>
-                    <li class="mb-3"><a href="contact-us.html">شیوه‌های پرداخت</a></li>
-                    <li class="mb-3"><a href="contact-us.html">رویه‌های بازگرداندن کالا</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">نحوه ثبت سفارش</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">رویه ارسال سفارش</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">شیوه‌های پرداخت</a></li>
+                    <li class="mb-3"><a href="{% url 'contact_us:contact-us' %}">رویه‌های بازگرداندن کالا</a></li>
                 </ul>
             </div>
             <div class="col-lg-5 col-sm-6 footer-box">
@@ -87,9 +87,7 @@
         </div><!-- end footer details -->
         <div class="row"><!-- start copy right -->
             <div class="col-12 copy-right">
-                <p>استفاده از مطالب فروشگاه اینترنتی نیک کالا فقط برای مقاصد غیرتجاری و
-                    با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به یاس دیزاین می‌باشد.
-                </p>
+                <p>{{ site_setting.copy_right }}</p>
             </div>
         </div><!-- end copy right -->
     </div>

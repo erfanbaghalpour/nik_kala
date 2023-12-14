@@ -13,7 +13,7 @@
                         <form action="{% url 'contact_us:contact-us' %}" method="post">
                             {% csrf_token %}
                             <div class="row px-2">
-                          {% comment %}      <div class="col-6">
+                                {% comment %}      <div class="col-6">
                                     <div class="mb-3 mt-3">
                                         <input type="text" name="title" class="form-control form-control-lg"
                                                placeholder="عنوان پیام">
@@ -72,9 +72,11 @@
                                 <h4>آدرس ما</h4>
                             </div>
                             <p class="font-14 mt-3 ms-2"><img src="/static/images/footerLogo.png" class="contact-logo">دفتر
-                                مرکزی : <span class="font-13">استان تهران - شهر تهران - خیابان بهشتی</span></p>
-                            <p class="font-14 ms-2"><i class="fa fa-phone text-muted me-2"></i>021-123456</p>
-                            <p class="font-14 ms-2"><i class="fa fa-envelope text-muted me-2"></i>info@test.com</p>
+                                مرکزی : <span class="font-13">{{ site_setting.address }}</span></p>
+                            <p class="font-14 ms-2"><i class="fa fa-phone text-muted me-2"></i>{{ site_setting.phone }}
+                            </p>
+                            <p class="font-14 ms-2"><i
+                                    class="fa fa-envelope text-muted me-2"></i>{{ site_setting.email }}</p>
                             <div class="row px-2">
                                 <div class="col-12 my-2">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.50553736921!2d51.37741631474645!3d35.68917533714458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzIxLjAiTiA1McKwMjInNDYuNiJF!5e0!3m2!1sen!2s!4v1596469430690!5m2!1sen!2s"

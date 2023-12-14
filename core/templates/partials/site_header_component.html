@@ -1,7 +1,7 @@
 <header class="w-100 d-none d-lg-block bg-white"><!-- start header -->
     <div class="container">
         <div class="row py-2">
-            <div class="col-lg-2"><a href="{% url 'core:index' %}"><img src="/static/images/logo.png" alt="Nikkala"></a>
+            <div class="col-lg-2"><a href="{% url 'core:index' %}"><img src="{{ site_setting.site_logo.url }}" alt="Nikkala"></a>
             </div><!-- logo -->
             <div class="col-lg-6 d-flex align-items-center justify-content-center"><!-- start search box -->
                 <div class="input-group search-box">
@@ -194,7 +194,7 @@
                                 </ul><!-- end mobile menu level 2 -->
 
                             </li>
-                            <li><a href="contact-us.html">تماس با ما</a></li>
+                            <li><a href="{% url 'contact_us:contact-us' %}">تماس با ما</a></li>
                             <li><a href="about-us.html">درباره ما</a></li>
                         </ul><!-- end mobiile menu level 1 -->
 
