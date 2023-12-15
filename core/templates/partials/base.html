@@ -1,5 +1,6 @@
 {% load static %}
 {% load render_partial %}
+{% load thumbnail %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -24,29 +25,26 @@
     <div id="main-slider" class="carousel slide" data-bs-ride="carousel">
         <!-- Indicators/dots -->
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#main-slider" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#main-slider" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#main-slider" data-bs-slide-to="2"></button>
-            <button type="button" data-bs-target="#main-slider" data-bs-slide-to="3"></button>
+            {% for slider in sliders %}
+                <button type="button" data-bs-target="#main-slider" data-bs-slide-to="{{ forloop.counter0 }}"
+                        class="{% if forloop.first %}active{% endif %}"></button>
+            {% endfor %}
         </div>
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <a href="#" target="_blank" class="d-block w-100"><img src="{% static 'images/main-slider-1.png' %}"
-                                                                       class="d-block w-100"></a>
-            </div>
-            <div class="carousel-item">
-                <a href="#" target="_blank" class="d-block w-100"><img src="{% static 'images/main-slider-2.png' %}"
-                                                                       class="d-block w-100"></a>
-            </div>
-            <div class="carousel-item">
-                <a href="#" target="_blank" class="d-block w-100"><img src="{% static 'images/main-slider-1.png' %}"
-                                                                       class="d-block w-100"></a>
-            </div>
-            <div class="carousel-item">
-                <a href="#" target="_blank" class="d-block w-100"><img src="{% static 'images/main-slider-2.png' %}"
-                                                                       class="d-block w-100"></a>
-            </div>
+            {% for slider in sliders %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+
+                    {% thumbnail slider.image "1346x400" as im %}
+                        <a href="{{ slider.url }}" target="_blank" class="d-block w-100"><img src="{{ im.url }}"
+                                                                                              width="{{ im.width }}"
+                                                                                              class="d-block w-100 btn-default"
+                                                                                              height="{{ im.height }}"/></a>
+                    {% endthumbnail %}
+
+                </div>
+            {% endfor %}
         </div>
         <!-- Left and right controls/icons -->
         <button class="carousel-control-prev" type="button" data-bs-target="#main-slider" data-bs-slide="prev">

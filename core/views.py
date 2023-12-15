@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views import View
 from django.core.paginator import Paginator
 
-from site_module.models import SiteSetting
+from site_module.models import SiteSetting, Slider
 
 
 def index(request):
@@ -16,9 +16,11 @@ def index(request):
     paginator = Paginator(products, 3)
     page_number = request.GET.get('page')
     products_list = paginator.get_page(page_number)
+    sliders = Slider.objects.filter(is_active=True)
     context = {
         'products': products_list,
         'total_number_of_products': number_of_products,
+        'sliders': sliders
         # 'average_ratings': avg_rating,
     }
     return render(request, 'core/index.html', context=context)

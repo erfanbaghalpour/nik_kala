@@ -19,3 +19,18 @@ class SiteSetting(models.Model):
     # class Meta:
     #     verbose_name = ""
     #     verbose_name_plural = ""
+
+
+class Slider(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='images/sliders', blank=True, null=True, max_length=1000)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
+    display_order = models.IntegerField(null=True, blank=True)
+    url = models.URLField(max_length=1000, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+# class Meta:
+#     verbose_name = ""
+#     verbose_name_plural = ""
