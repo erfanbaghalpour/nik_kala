@@ -1,4 +1,5 @@
 {% extends 'partials/blog_base.html' %}
+{% load thumbnail %}
 
 {% block content_blog %}
     <main><!-- start main -->
@@ -67,7 +68,7 @@
 
                         <div class="col-12 mb-3">
                             <a href="{% url 'single_post' slug='test' %}" class="sub-layer">
-                                <img src="/static/images//mag-7.jpeg" class="blog-pic">
+                                <img src="/static/images/mag-7.jpeg" class="blog-pic">
                                 <div class="pic-mask">
                                     <p>۱۰ عادت سالم و کارآمد برای اینکه چربی بیشتری آب کنید</p>
                                 </div>
@@ -76,7 +77,7 @@
 
                         <div class="col-12 mb-3">
                             <a href="{% url 'single_post' slug='test' %}" class="sub-layer">
-                                <img src="/static/images//mag-8.jpg" class="blog-pic">
+                                <img src="/static/images/mag-8.jpg" class="blog-pic">
                                 <div class="pic-mask">
                                     <p>بهترین فیلم‌های فرانسوی تاریخ سینما</p>
                                 </div>
@@ -99,115 +100,56 @@
 
             <div class="row mt-3"><!-- start new blog posts -->
 
-                <div class="col-lg-3 col-sm-6 mb-3"><!-- start item -->
-                    <div class="card border-0 custom-blog-card">
-                        <div class="sub-layer">
-                            <img src="/static/images/mag-1.jpg" class="img-fluid">
-                            <div class="over-layer">
-                                <a href="{% url 'post_blog' %}" class="image-badge">آموزش آشپزی</a>
-                                <span class="image-like">(4)<i class="far fa-heart ms-1"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">طرز تهیه رولت کرپ با کرم فندق بسیار آسان و بدون نیاز به فر</a>
-                            <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white border-top-0">
-                            <img src="/static/images/person.jpg" class="person-pic">
-                            <span class="writer">سارا رضایی</span>
-                            <div class="float-end mt-2">
-                                <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- end item -->
+                {% for blog in object_list %}
+                    <div class="col-lg-3 col-sm-6 mb-3"><!-- start item -->
+                        <div class="card border-0 custom-blog-card">
+                            <div class="sub-layer">
 
-                <div class="col-lg-3 col-sm-6 mb-3"><!-- start item -->
-                    <div class="card border-0 custom-blog-card">
-                        <div class="sub-layer">
-                            <img src="/static/images/mag-2.jpg" class="img-fluid">
-                            <div class="over-layer">
-                                <a href="{% url 'post_blog' %}" class="image-badge">سبک زندگی</a>
-                                <span class="image-like">(4)<i class="far fa-heart ms-1"></i></span>
+                                {% if blog.image %}
+                                    {% thumbnail blog.image "610x380" as im %}
+                                        <img
+                                                src="{{ im.url }}"
+                                                width="{{ im.width }}"
+                                                class="img-fluid"
+                                                height="{{ im.height }}"/>
+                                    {% endthumbnail %}
+                                {% else %}
+                                    <img src="/static/images/mag-1.jpg" class="img-fluid">
+                                {% endif %}
+                                <div class="over-layer">
+                                    <a href="{% url 'post_blog' %}"
+                                       class="image-badge">{{ blog.selected_categories.name }}</a>
+                                    <span class="image-like">(4)<i class="far fa-heart ms-1"></i></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">بررسی خردکن سیلور کرست مدل SLMA مناسب کارهای دم‌دستی</a>
-                            <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white border-top-0">
-                            <img src="/static/images/person.jpg" class="person-pic">
-                            <span class="writer">سارا رضایی</span>
-                            <div class="float-end mt-2">
-                                <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
+                            <div class="card-body pb-0">
+                                <a href="{% url 'single_post' slug='test' %}">{{ blog.title }}</a>
+                                <p>
+                                    {{ blog.short_description }}
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div><!-- end item -->
+                            <div class="card-footer bg-white border-top-0">
 
-                <div class="col-lg-3 col-sm-6 mb-3"><!-- start item -->
-                    <div class="card border-0 custom-blog-card">
-                        <div class="sub-layer">
-                            <img src="/static/images/mag-3.jpg" class="img-fluid">
-                            <div class="over-layer">
-                                <a href="{% url 'post_blog' %}" class="image-badge">تکنولوژی</a>
-                                <span class="image-like">(4)<i class="far fa-heart ms-1"></i></span>
+                                {% if blog.author_image %}
+                                    {% thumbnail blog.author_image "180x160" as im %}
+                                        <img
+                                                src="{{ im.url }}"
+                                                width="{{ im.width }}"
+                                                class="person-pic"
+                                                height="{{ im.height }}"/>
+                                    {% endthumbnail %}
+                                {% else %}
+                                    <img src="/static/images/person.jpg" class="person-pic">
+                                {% endif %}
+                                <span class="writer">{{ blog.author }}</span>
+                                <div class="float-end mt-2">
+                                    <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">۱۰ اشتباه که کاربران تازه‌ وارد گوشی‌های اندرویدی مرتکب
-                                می‌شوند</a>
-                            <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white border-top-0">
-                            <img src="/static/images/person.jpg" class="person-pic">
-                            <span class="writer">سارا رضایی</span>
-                            <div class="float-end mt-2">
-                                <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- end item -->
+                    </div><!-- end item -->
+                {% endfor %}
 
-                <div class="col-lg-3 col-sm-6 mb-3"><!-- start item -->
-                    <div class="card border-0 custom-blog-card">
-                        <div class="sub-layer">
-                            <img src="/static/images/mag-4.jpg" class="img-fluid">
-                            <div class="over-layer">
-                                <a href="{% url 'post_blog' %}" class="image-badge">تکنولوژی</a>
-                                <span class="image-like">(4)<i class="far fa-heart ms-1"></i></span>
-                            </div>
-                        </div>
-                        <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">راهنمای خرید بهترین گوشی سامسونگ سری A؛ گزینه‌های ایده‌آل
-                                خرید</a>
-                            <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white border-top-0">
-                            <img src="/static/images/person.jpg" class="person-pic">
-                            <span class="writer">سارا رضایی</span>
-                            <div class="float-end mt-2">
-                                <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- end item -->
 
             </div><!-- end new blog posts -->
 
@@ -233,7 +175,8 @@
                             </div>
                         </div>
                         <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">طرز تهیه رولت کرپ با کرم فندق بسیار آسان و بدون نیاز به فر</a>
+                            <a href="{% url 'single_post' slug='test' %}">طرز تهیه رولت کرپ با کرم فندق بسیار آسان و
+                                بدون نیاز به فر</a>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
                                 از صنعت چاپ و با استفاده از طراحان گرافیک است.
@@ -260,7 +203,8 @@
                             </div>
                         </div>
                         <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">بررسی خردکن سیلور کرست مدل SLMA مناسب کارهای دم‌دستی</a>
+                            <a href="{% url 'single_post' slug='test' %}">بررسی خردکن سیلور کرست مدل SLMA مناسب کارهای
+                                دم‌دستی</a>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
                                 از صنعت چاپ و با استفاده از طراحان گرافیک است.
@@ -287,7 +231,8 @@
                             </div>
                         </div>
                         <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">۱۰ اشتباه که کاربران تازه‌ وارد گوشی‌های اندرویدی مرتکب
+                            <a href="{% url 'single_post' slug='test' %}">۱۰ اشتباه که کاربران تازه‌ وارد گوشی‌های
+                                اندرویدی مرتکب
                                 می‌شوند</a>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
@@ -315,7 +260,8 @@
                             </div>
                         </div>
                         <div class="card-body pb-0">
-                            <a href="{% url 'single_post' slug='test' %}">راهنمای خرید بهترین گوشی سامسونگ سری A؛ گزینه‌های ایده‌آل
+                            <a href="{% url 'single_post' slug='test' %}">راهنمای خرید بهترین گوشی سامسونگ سری A؛
+                                گزینه‌های ایده‌آل
                                 خرید</a>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم

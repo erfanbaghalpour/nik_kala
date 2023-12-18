@@ -7,5 +7,10 @@ class BlogCategoryAdmin(admin.ModelAdmin):
     list_editable = ['url_title', 'is_active', 'parent']
 
 
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug', 'is_active']
+    list_editable = ['is_active']
+
+
 admin.site.register(models.BlogCategory, BlogCategoryAdmin)
-admin.site.register(models.Blog)
+admin.site.register(models.Blog, BlogAdmin)
