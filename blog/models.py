@@ -1,5 +1,7 @@
 from django.db import models
 
+from userauths.models import User
+
 
 class BlogCategory(models.Model):
     parent = models.ForeignKey('BlogCategory', on_delete=models.CASCADE, null=True, blank=True)
@@ -22,8 +24,9 @@ class Blog(models.Model):
     short_description = models.CharField(max_length=1000)
     text = models.TextField()
     is_active = models.BooleanField(default=True)
-    author = models.CharField(max_length=300, null=True, blank=True)
-    author_image = models.ImageField(max_length=1000, upload_to='images/blogs', null=True, blank=True)
+    author = models.ForeignKey(User, max_length=300, null=True, blank=True, on_delete=models.CASCADE)
+    # author = models.CharField(max_length=300, null=True, blank=True)
+    author_image = models.ImageField(max_length=1000, upload_to='images/blogs', null=True, blank=True, editable=False)
     selected_categories = models.ManyToManyField(BlogCategory)
 
     def __str__(self):

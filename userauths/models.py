@@ -12,7 +12,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
-        return self.username
+        if self.first_name is not None and self.last_name is not None:
+            return self.get_full_name()
+        return self.email
 
     # class Meta:
     #     verbose_name = ''

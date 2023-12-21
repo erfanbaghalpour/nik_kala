@@ -141,7 +141,9 @@
                                 {% else %}
                                     <img src="/static/images/person.jpg" class="person-pic">
                                 {% endif %}
-                                <span class="writer">{{ blog.author }}</span>
+                                {% if blog.author is not None %}
+                                    <span class="writer">{{ blog.author }}</span>
+                                {% endif %}
                                 <div class="float-end mt-2">
                                     <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
                                 </div>
