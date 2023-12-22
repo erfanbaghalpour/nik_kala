@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from .models import Blog
 from django.views.generic.list import ListView
+from jalali_date import datetime2jalali, date2jalali
 
 
 def blog_view(request: HttpRequest):
@@ -30,3 +31,8 @@ class BlogListView(ListView):
     model = Blog
     paginate_by = 4
     template_name = 'blog/blog.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BlogListView, self).get_context_data(*args, **kwargs)
+        context['date'] = datetime2jalali(self.request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
+        return context

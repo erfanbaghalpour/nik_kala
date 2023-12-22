@@ -1,4 +1,5 @@
 from django.db import models
+from jalali_date import date2jalali
 
 from userauths.models import User
 
@@ -28,9 +29,16 @@ class Blog(models.Model):
     # author = models.CharField(max_length=300, null=True, blank=True)
     author_image = models.ImageField(max_length=1000, upload_to='images/blogs', null=True, blank=True, editable=False)
     selected_categories = models.ManyToManyField(BlogCategory)
+    create_date = models.DateTimeField(auto_now_add=True, editable=False, null=True, blank=True)
 
     def __str__(self):
         return self.title
+
+    def get_jalali_create_date(self):
+        return date2jalali(self.create_date)
+
+    def get_jalali_create_time(self):
+        return self.create_date.strftime('%H:%M')
 
     # class Meta:
     #     verbose_name = ''

@@ -1,6 +1,6 @@
 {% extends 'partials/blog_base.html' %}
 {% load thumbnail %}
-
+{% load poll_exteras %}
 {% block content_blog %}
     <main><!-- start main -->
         <div class="container">
@@ -145,7 +145,10 @@
                                     <span class="writer">{{ blog.author }}</span>
                                 {% endif %}
                                 <div class="float-end mt-2">
-                                    <span class="time"><i class="fa fa-clock font-13 me-1"></i>2 ساعت قبل</span>
+                                    <span class="time" style="align-items: center; margin-left: 25px"><i
+                                            class="fa fa-clock font-13 me-1"></i>{{ blog.get_jalali_create_time }}</span>
+                                    <span class="time"><i
+                                            class="fa fa-calendar font-13 me-1"></i>{{ blog.create_date | show_jalali_date }}</span>
                                 </div>
                             </div>
                         </div>
