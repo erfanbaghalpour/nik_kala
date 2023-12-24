@@ -22,3 +22,4 @@ class BlogAdmin(admin.ModelAdmin):
 
 admin.site.register(models.BlogCategory, BlogCategoryAdmin)
 admin.site.register(models.Blog, BlogAdmin)
+admin.site.register(models.BlogComment)

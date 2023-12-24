@@ -7,5 +7,4 @@ class UserAdmin(admin.ModelAdmin):
     list_editable = ['email', 'mobile']
 
 
-
 admin.site.register(models.User, UserAdmin)

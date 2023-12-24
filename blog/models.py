@@ -43,3 +43,16 @@ class Blog(models.Model):
     # class Meta:
     #     verbose_name = ''
     #     verbose_name_plural = ''
+
+
+class BlogComment(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    parent = models.ForeignKey('BlogComment', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    create_date = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+
+    # class Meta:
+    #     verbose_name = ''
+    #     verbose_name_plural = ''

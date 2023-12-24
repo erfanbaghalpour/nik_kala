@@ -7,6 +7,7 @@ class User(AbstractUser):
     email_active_code = models.CharField(max_length=100, editable=False, unique=True, null=True)
     mobile = models.CharField(max_length=11, null=True, blank=True)
     username = models.CharField(max_length=100)
+    about_user = models.TextField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
