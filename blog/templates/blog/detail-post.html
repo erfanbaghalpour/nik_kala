@@ -68,31 +68,34 @@
                             </form>
                         </div><!-- end comment form -->
 
-                        <div class="row mx-1 mt-5"><!-- start comment box -->
-                            <div class="col-12 question-box">
-                                <div class="question-header">
-                                    <div>
-                                        <img src="/static/images/user.jpg" class="user-comment-pic">
-                                        <span>امیر حسین</span>
+                        {% for comment in comments %}
+                            <div class="row mx-1 mt-5"><!-- start comment box -->
+                                <div class="col-12 question-box">
+                                    <div class="question-header">
+                                        <div>
+                                            {% comment %}<img src="/static/images/user.jpg" class="user-comment-pic">{% endcomment %}
+                                            <span> {{ comment.user }}</span>
+                                        </div>
+                                        <p class="font-12 text-secondary">{{ comment.create_date | time }}
+                                            | {{ comment.create_date | show_jalali_date }}</p>
                                     </div>
-                                    <p class="font-12 text-secondary">20 خرداد 1402</p>
+                                    <div class="question-body py-3">
+                                        <p>
+                                            {{ comment.text }}
+                                        </p>
+                                    </div>
+                                    <div class="question-footer">
+                                        <span class="font-12 ms-3"><i
+                                                class="far fa-heart text-danger font-114 me-1"></i>(12)</span>
+                                        <span class="font-12 ms-3"><i
+                                                class="far fa-thumbs-up text-success font-14 me-1"></i>(8)</span>
+                                        <span class="font-12 ms-3"><i
+                                                class="far fa-thumbs-down text-muted font-14 me-1"></i>(0)</span>
+                                    </div>
                                 </div>
-                                <div class="question-body py-3">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                                        با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
-                                        روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
-                                        مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                                    </p>
-                                </div>
-                                <div class="question-footer">
-                                    <span class="font-12 ms-3"><i class="far fa-heart text-danger font-114 me-1"></i>(12)</span>
-                                    <span class="font-12 ms-3"><i
-                                            class="far fa-thumbs-up text-success font-14 me-1"></i>(8)</span>
-                                    <span class="font-12 ms-3"><i
-                                            class="far fa-thumbs-down text-muted font-14 me-1"></i>(0)</span>
-                                </div>
-                            </div>
-                        </div><!-- end comment box -->
+                            </div><!-- end comment box -->
+                        {% endfor %}
+
 
                     </div>
 

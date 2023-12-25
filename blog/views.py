@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView
 
-from .models import Blog, BlogCategory
+from .models import Blog, BlogCategory, BlogComment
 from django.views.generic.list import ListView
 from jalali_date import datetime2jalali, date2jalali
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -66,3 +66,10 @@ class BlogDetailView(DetailView):
         query = super(BlogDetailView, self).get_queryset()
         query = query.filter(is_active=True)
         return query
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogDetailView, self).get_context_data()
+        blog: Blog = kwargs.get('object')
+        context['comments'] = BlogComment.objects.filter(blog_id=blog.id, parent=None).prefetch_related(
+            'blogcomment_set')
+        return context

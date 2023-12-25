@@ -52,6 +52,8 @@ class BlogComment(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
 
+    def __str__(self):
+        return str(self.user)
 
     # class Meta:
     #     verbose_name = ''

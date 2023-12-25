@@ -20,6 +20,10 @@ class BlogAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
 
+class BlogCommentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'create_date', 'parent']
+
+
 admin.site.register(models.BlogCategory, BlogCategoryAdmin)
 admin.site.register(models.Blog, BlogAdmin)
-admin.site.register(models.BlogComment)
+admin.site.register(models.BlogComment, BlogCommentAdmin)
