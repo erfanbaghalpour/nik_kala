@@ -45,28 +45,9 @@
                             </div>
                         </div><!-- end comment title -->
 
-                        <div class="row"><!-- start comment form -->
-                            <form>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mt-3">
-                                            <input type="text" class="form-control form-control-lg"
-                                                   placeholder="نام و نام خانوادگی">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mt-3">
-                                            <input type="email" class="form-control form-control-lg" id="negative-point"
-                                                   placeholder="ایمیل">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="my-3">
-                                    <textarea class="form-control" rows="10" placeholder="متن نظر شما"></textarea>
-                                </div>
-                                <input type="submit" class="send-btn float-end" value="ثبت نظر">
-                            </form>
-                        </div><!-- end comment form -->
+
+
+
 
                         {% for comment in comments %}
                             <div class="row mx-1 mt-5"><!-- start comment box -->
@@ -95,6 +76,26 @@
                                 </div>
                             </div><!-- end comment box -->
                         {% endfor %}
+
+                        {% if request.user.is_authenticated %}
+                            <div class="row"><!-- start comment form -->
+                                <input type="hidden" value="" id="parent_id">
+                                {% comment %}<form>{% endcomment %}
+                                <div class="my-3">
+                                    <textarea id="commentText" class="form-control" rows="10"
+                                              placeholder="متن نظر شما"></textarea>
+                                </div>
+                                {% comment %}<input type="submit" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})"
+                                       value="ثبت نظر">{% endcomment %}
+                                <a href="" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})">ثبت
+                                    نظر</a>
+                                {% comment %}</form>{% endcomment %}
+                            </div><!-- end comment form -->
+                        {% else %}
+                            <div class="alert alert-warning">
+                                برای درج نظر باید وارد <a href="{% url 'userauths:log-in' %}">حساب کاربری</a> خود شوید
+                            </div>
+                        {% endif %}
 
 
                     </div>

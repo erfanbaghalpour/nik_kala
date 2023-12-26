@@ -1,4 +1,4 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView
@@ -70,6 +70,20 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(BlogDetailView, self).get_context_data()
         blog: Blog = kwargs.get('object')
-        context['comments'] = BlogComment.objects.filter(blog_id=blog.id, parent=None).prefetch_related(
+        context['comments'] = BlogComment.objects.filter(blog_id=blog.id, parent=None).order_by(
+            '-create_date').prefetch_related(
             'blogcomment_set')
         return context
+
+
+
+def add_blog_comment(request: HttpRequest):
+    if request.user.is_authenticated:
+        blog_id = request.GET.get('blog_id')
+        blog_comment = request.GET.get('blog_comment')
+        parent_id = request.GET.get('parent_id')
+        print(blog_id, blog_comment, parent_id)
+        new_comment = BlogComment(blog_id=blog_id, text=blog_comment, user_id=request.user.id, parent_id=parent_id)
+        new_comment.save()
+
+    return HttpResponse('response')
