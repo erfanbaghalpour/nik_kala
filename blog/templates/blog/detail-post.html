@@ -22,7 +22,7 @@
 
 
                         {% if blog.image %}
-                            {% thumbnail blog.image "928x522" as im %}
+                            {% thumbnail blog.image "928x522" quality=99 as im %}
                                 <img
                                         src="{{ im.url }}"
                                         width="{{ im.width }}"
@@ -50,8 +50,8 @@
 
 
                         {% for comment in comments %}
-                            <div class="row mx-1 mt-5"><!-- start comment box -->
-                                <div class="col-12 question-box">
+                            <div class="row mx-1 mt-5" id="comments_area"><!-- start comment box -->
+                                <div class="col-12 question-box" id="single_comment_box_{{ comment.id }}">
                                     <div class="question-header">
                                         <div>
                                             {% comment %}<img src="/static/images/user.jpg" class="user-comment-pic">{% endcomment %}

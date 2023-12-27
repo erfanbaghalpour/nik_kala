@@ -73,8 +73,8 @@ class BlogDetailView(DetailView):
         context['comments'] = BlogComment.objects.filter(blog_id=blog.id, parent=None).order_by(
             '-create_date').prefetch_related(
             'blogcomment_set')
+        context['comments_count'] = BlogComment.objects.filter(blog_id=blog.id).count()
         return context
-
 
 
 def add_blog_comment(request: HttpRequest):
@@ -85,5 +85,12 @@ def add_blog_comment(request: HttpRequest):
         print(blog_id, blog_comment, parent_id)
         new_comment = BlogComment(blog_id=blog_id, text=blog_comment, user_id=request.user.id, parent_id=parent_id)
         new_comment.save()
+        context = {
+            'comments': BlogComment.objects.filter(blog_id=blog_id, parent=None).order_by(
+                '-create_date').prefetch_related(
+                'blogcomment_set'),
+            'comments_count': BlogComment.objects.filter(blog_id=blog_id).count()
+        }
+        return render(request, 'includes/blog_comments_partial.html', context=context)
 
     return HttpResponse('response')
