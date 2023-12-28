@@ -78,19 +78,22 @@
                         {% endfor %}
 
                         {% if request.user.is_authenticated %}
-                            <div class="row"><!-- start comment form -->
-                                <input type="hidden" value="" id="parent_id">
-                                {% comment %}<form>{% endcomment %}
-                                <div class="my-3">
+                            <form action="{% url 'add_blog_comment' %}" method="post">
+                                {% csrf_token %}
+                                <div class="row"><!-- start comment form -->
+                                    <input type="hidden" value="" id="parent_id">
+                                    {% comment %}<form>{% endcomment %}
+                                    <div class="my-3">
                                     <textarea id="commentText" class="form-control" rows="10"
                                               placeholder="متن نظر شما"></textarea>
-                                </div>
-                                {% comment %}<input type="submit" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})"
+                                    </div>
+                                    {% comment %}<input type="submit" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})"
                                        value="ثبت نظر">{% endcomment %}
-                                <a href="" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})">ثبت
-                                    نظر</a>
-                                {% comment %}</form>{% endcomment %}
-                            </div><!-- end comment form -->
+                                    <a href="" class="send-btn float-end" onclick="sendBlogComment({{ blog.id }})">ثبت
+                                        نظر</a>
+                                    {% comment %}</form>{% endcomment %}
+                                </div><!-- end comment form -->
+                            </form>
                         {% else %}
                             <div class="alert alert-warning">
                                 برای درج نظر باید وارد <a href="{% url 'userauths:log-in' %}">حساب کاربری</a> خود شوید

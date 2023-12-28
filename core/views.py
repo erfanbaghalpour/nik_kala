@@ -62,3 +62,4 @@ class AboutView(TemplateView):
         context['site_setting'] = setting
 
         return context
+

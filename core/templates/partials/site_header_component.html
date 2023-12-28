@@ -1,7 +1,9 @@
 <header class="w-100 d-none d-lg-block bg-white"><!-- start header -->
     <div class="container">
         <div class="row py-2">
-            <div class="col-lg-2"><a href="{% url 'core:index' %}"><img src="{{ site_setting.site_logo.url }}" alt="Nikkala"></a>
+            <div class="col-lg-2"><a href="{% url 'core:index' %}"><img src="{{ site_setting.site_logo.url }}"
+                                                                        alt="Nikkala"></a>
+
             </div><!-- logo -->
             <div class="col-lg-6 d-flex align-items-center justify-content-center"><!-- start search box -->
                 <div class="input-group search-box">
@@ -17,17 +19,15 @@
                             <li class="d-flex">
                                 <img src="/static/images/avatar.jpg" class="avatar">
                                 <div class="ms-2">
-                                    <a href="profile.html" class="font-14 text-dark">امیرحسین رضایی</a>
-                                    <a href="profile.html" class="font-12 d-block text-info mt-2">مشاهده حساب کاربری <i
-                                            class="fa fa-chevron-left align-middle mt-1"></i></a>
+                                    <a href="{% url 'user_panel' %}" class="font-14 text-dark">امیرحسین رضایی</a>
+                                    <a href="{% url 'user_panel' %}" class="font-12 d-block text-info mt-2">مشاهده حساب
+                                        کاربری <i
+                                                class="fa fa-chevron-left align-middle mt-1"></i></a>
                                 </div>
                             </li>
                             <li>
-                                <a href="profile.html" class="login-link"><i
+                                <a href="{% url 'user_panel' %}" class="login-link"><i
                                         class="fa fa-shopping-basket text-muted font-14 me-1"></i> سفارش های من</a>
-                                <a href="profile.html" class="login-link"><i
-                                        class="fa fa-gift text-muted font-14 me-1"></i>جوایز
-                                    نیک کلاب</a>
                                 <a href="{% url 'userauths:log-out' %}" class="login-link"><i
                                         class="fas fa-sign-out-alt text-muted font-14 me-1"></i>خروج
                                     از حساب کاربری</a>
@@ -189,7 +189,7 @@
                                         </ul><!-- start mobile menu level 3 -->
 
                                     </li>
-                                    <li><a href="profile.html">پروفایل کاربر</a></li>
+                                    <li><a href="{% url 'user_panel' %}">پروفایل کاربر</a></li>
                                     <li><a href="blog.html">وبلاگ</a></li>
                                 </ul><!-- end mobile menu level 2 -->
 
@@ -210,16 +210,15 @@
                         <li class="d-flex">
                             <img src="/static/images/avatar.jpg" class="avatar">
                             <div class="ms-2">
-                                <a href="profile.html" class="font-14 text-dark">امیرحسین رضایی</a>
-                                <a href="profile.html" class="font-12 d-block text-info mt-2">مشاهده حساب کاربری <i
-                                        class="fa fa-chevron-left align-middle mt-1"></i></a>
+                                <a href="{% url 'user_panel' %}" class="font-14 text-dark">امیرحسین رضایی</a>
+                                <a href="{% url 'user_panel' %}" class="font-12 d-block text-info mt-2">مشاهده حساب
+                                    کاربری <i
+                                            class="fa fa-chevron-left align-middle mt-1"></i></a>
                             </div>
                         </li>
                         <li>
-                            <a href="profile.html" class="login-link"><i
+                            <a href="{% url 'user_panel' %}" class="login-link"><i
                                     class="fa fa-shopping-basket text-muted font-14 me-1"></i> سفارش های من</a>
-                            <a href="profile.html" class="login-link"><i class="fa fa-gift text-muted font-14 me-1"></i>جوایز
-                                نیک کلاب</a>
                             <a href="#" class="login-link"><i class="fas fa-sign-out-alt text-muted font-14 me-1"></i>خروج
                                 از حساب کاربری</a>
                         </li>
@@ -387,13 +386,13 @@
                             <li><a href="404.html">خطای 404</a></li>
                         </ul><!-- end sub menu level 2 -->
                     </li>
-                    <li><a href="profile.html">پروفایل کاربر</a></li>
+                    <li><a href="{% url 'user_panel' %}">پروفایل کاربر</a></li>
                     <li><a href="{% url 'index_blog' %}">وبلاگ</a></li>
                     <li><a href="cart.html">سبد خرید</a></li>
                 </ul><!-- end sub menu-->
             </li>
             <li><a href="{% url 'contact_us:contact-us' %}">تماس با ما</a></li>
-            <li><a href="about-us.html">درباره ما</a></li>
+            <li><a href="{% url 'core:about-us' %}">درباره ما</a></li>
         </ul>
     </div>
 </nav><!-- end main menu -->
