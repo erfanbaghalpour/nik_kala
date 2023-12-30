@@ -1,0 +1,122 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load render_partial %}
+{% block content %}
+    <main><!-- start main -->
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3">
+
+                    <div class="profile-card pb-0"><!-- start avatar box -->
+                        <img src="/static/images/avatar.jpg" class="profile-avatar img-thumbnail">
+                        <p class="font-13 text-center">امیرحسین رضایی</p>
+                        <div class="row border-top">
+                            <div class="col-6 border-end text-center">
+                                <i class="fa fa-lock font-13 text-muted my-2"></i>
+                                <a href="change-password.html" class="text-dark d-block font-12 mb-2">تغییر رمز عبور</a>
+                            </div>
+                            <div class="col-6 text-center">
+                                <i class="fas fa-sign-out-alt font-13 text-muted my-2"></i>
+                                <a href="#" class="text-dark d-block font-12 mb-2">خروج از حساب</a>
+                            </div>
+                        </div>
+                    </div><!-- end avatar box -->
+
+                    <div class="profile-card"><!-- start sidebar menu -->
+                        <ul class="profile-sidebar">
+                            <li><a href="profile.html"><i class="far fa-user-circle align-middle me-2"></i>پروفایل</a>
+                            </li>
+                            <li><a href="profile-order.html"><i class="fas fa-shopping-cart align-middle me-2"></i>همه
+                                سفارش ها</a></li>
+                            <li><a href="profile-order-return.html"><i class="fa  fa-retweet align-middle me-2"></i>درخواست
+                                مرجوعی</a></li>
+                            <li><a href="profile-address.html"><i class="fas fa-map-marker-alt align-middle me-2"></i>آدرس
+                                ها</a></li>
+                            <li><a href="profile-info.html" class="text-info"><i
+                                    class="far fa-address-card align-middle me-2"></i>اطلاعات حساب</a></li>
+                        </ul>
+                    </div><!-- end sidebar menu -->
+
+                </div>
+
+                <div class="col-lg-9">
+
+                    <div class="profile-card personal-info"><!-- start personal info edit box -->
+                        <p class="font-13">اطلاعات شخصی</p>
+                        <form action="{% url 'profile_info' %}" method="post" class="list-group">
+                            {% csrf_token %}
+                            <div class="row form-control form-control-lg">
+
+                                <div class="col mb-3">
+                                    {{ form.first_name.label_tag }}
+                                    {{ form.first_name }}
+                                    {{ form.first_name.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+                                <div class="col mb-3">
+                                    {{ form.last_name.label_tag }}
+                                    {{ form.last_name }}
+                                    {{ form.last_name.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+                                <div class="col mb-3">
+                                    {{ form.mobile.label_tag }}
+                                    {{ form.mobile }}
+                                    {{ form.mobile.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+                                <div class="col mb-3">
+                                    {{ form.address.label_tag }}
+                                    {{ form.address }}
+                                    {{ form.address.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+                                <div class="col mb-3">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {{ form.email.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+                                {% comment %}<div class="col mb-3">
+                                    <label for="tell" class="form-label">شماره تلفن همراه : </label>
+                                    <input type="tel" class="form-control form-control-lg" id="tell" value="******0912">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="email" class="form-label">ایمیل :</label>
+                                    <input type="email" class="form-control form-control-lg" id="email"
+                                           value="test@gmail.com">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 mt-2">
+                                    <button type="submit" class="btn btn-info text-white font-13 float-end">ثبت
+                                        اطلاعات
+                                    </button>
+                                </div>
+                            </div>{% endcomment %}
+                        </form>
+
+                    </div><!-- end personal info edit box -->
+
+                </div>
+
+            </div>
+        </div>
+    </main><!-- end main -->
+
+{% endblock %}

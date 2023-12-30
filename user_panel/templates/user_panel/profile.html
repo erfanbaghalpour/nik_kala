@@ -1,7 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% load thumbnail %}
-
+{% load render_partial %}
 
 {% block content %}
     <main><!-- start main -->
@@ -61,16 +61,9 @@
                                             <p>test@gmail.com</p></div>
                                         <div class="col-6 pt-2 border-bottom border-end"><p>شماره تلفن همراه :</p>
                                             <p>*******0912</p></div>
-                                        <div class="col-6 pt-2 border-bottom"><p>کد ملی :</p>
-                                            <p>-</p></div>
-                                        <div class="col-6 pt-2 border-end"><p>دریافت خبرنامه :</p>
-                                            <p>بله</p></div>
-                                        <div class="col-6 pt-2"><p>شماره کارت :</p>
-                                            <p>-</p></div>
                                     </div>
                                 </div>
-                                <a href="profile-info.html" class="profile-edit-link"><i
-                                        class="fa fa-edit align-middle"></i> ویرایش اطلاعات شخصی</a>
+                                {% render_partial 'user_panel.views.user_panel_menu_component' %}
                             </div><!-- end personal info box -->
 
                             <div class="col-lg-6"><!-- start recent fav list -->
