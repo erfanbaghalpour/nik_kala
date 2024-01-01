@@ -11,16 +11,28 @@
                 <div class="col-lg-3">
 
                     <div class="profile-card pb-0"><!-- start avatar box -->
-                        <img src="/static/images/avatar.jpg" class="profile-avatar img-thumbnail">
-                        <p class="font-13 text-center">امیرحسین رضایی</p>
+                        {% if user.image %}
+                            {% thumbnail user.image "640x640" quality=99 as im %}
+                                <img
+                                        src="{{ im.url }}"
+                                        width="{{ im.width }}"
+                                        class="profile-avatar img-thumbnail"
+                                        height="{{ im.height }}"/>
+                            {% endthumbnail %}
+                        {% else %}
+                            <img src="/static/images/avatar.jpg" class="profile-avatar img-thumbnail">
+                        {% endif %}
+                        <p class="font-13 text-center">{{ profile.get_full_name }}</p>
                         <div class="row border-top">
                             <div class="col-6 border-end text-center">
                                 <i class="fa fa-lock font-13 text-muted my-2"></i>
-                                <a href="change-password.html" class="text-dark d-block font-12 mb-2">تغییر رمز عبور</a>
+                                <a href="{% url 'change_password' %}" class="text-dark d-block font-12 mb-2">تغییر رمز
+                                    عبور</a>
                             </div>
                             <div class="col-6 text-center">
                                 <i class="fas fa-sign-out-alt font-13 text-muted my-2"></i>
-                                <a href="#" class="text-dark d-block font-12 mb-2">خروج از حساب</a>
+                                <a href="{% url 'userauths:log-out' %}" class="text-dark d-block font-12 mb-2">خروج از
+                                    حساب</a>
                             </div>
                         </div>
                     </div><!-- end avatar box -->
