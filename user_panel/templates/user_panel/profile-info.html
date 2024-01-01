@@ -9,20 +9,35 @@
 
                 <div class="col-lg-3">
 
-                    <div class="profile-card pb-0"><!-- start avatar box -->
-                        <img src="/static/images/avatar.jpg" class="profile-avatar img-thumbnail">
-                        <p class="font-13 text-center">امیرحسین رضایی</p>
-                        <div class="row border-top">
-                            <div class="col-6 border-end text-center">
-                                <i class="fa fa-lock font-13 text-muted my-2"></i>
-                                <a href="change-password.html" class="text-dark d-block font-12 mb-2">تغییر رمز عبور</a>
+                    {% if request.user.is_authenticated %}
+                        <div class="profile-card pb-0"><!-- start avatar box -->
+
+                            {% if user.image %}
+                                {% thumbnail user.image "640x640" quality=99 as im %}
+                                    <img
+                                            src="{{ im.url }}"
+                                            width="{{ im.width }}"
+                                            class="profile-avatar img-thumbnail"
+                                            height="{{ im.height }}"/>
+                                {% endthumbnail %}
+                            {% else %}
+                                <img src="/static/images/avatar.jpg" class="profile-avatar img-thumbnail">
+                            {% endif %}
+                            <p class="font-13 text-center">{{ user.get_full_name }}</p>
+                            <div class="row border-top">
+                                <div class="col-6 border-end text-center">
+                                    <i class="fa fa-lock font-13 text-muted my-2"></i>
+                                    <a href="change-password.html" class="text-dark d-block font-12 mb-2">تغییر رمز
+                                        عبور</a>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <i class="fas fa-sign-out-alt font-13 text-muted my-2"></i>
+                                    <a href="{% url 'userauths:log-out' %}" class="text-dark d-block font-12 mb-2">خروج
+                                        از حساب</a>
+                                </div>
                             </div>
-                            <div class="col-6 text-center">
-                                <i class="fas fa-sign-out-alt font-13 text-muted my-2"></i>
-                                <a href="#" class="text-dark d-block font-12 mb-2">خروج از حساب</a>
-                            </div>
-                        </div>
-                    </div><!-- end avatar box -->
+                        </div><!-- end avatar box -->
+                    {% endif %}
 
                     <div class="profile-card"><!-- start sidebar menu -->
                         <ul class="profile-sidebar">
@@ -45,7 +60,7 @@
 
                     <div class="profile-card personal-info"><!-- start personal info edit box -->
                         <p class="font-13">اطلاعات شخصی</p>
-                        <form action="{% url 'profile_info' %}" method="post" class="list-group">
+                        <form enctype="multipart/form-data" action="{% url 'profile_info' %}" method="post" class="list-group">
                             {% csrf_token %}
                             <div class="row form-control form-control-lg">
 
@@ -73,6 +88,34 @@
                                     <input type="text" class="form-control form-control-lg" id="name"
                                            value="امیرحسین رضایی">{% endcomment %}
                                 </div>
+
+                                <div class="col mb-3">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {{ form.email.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+
+                                <div class="col mb-3">
+                                    {{ form.image.label_tag }}
+                                    {{ form.image }}
+                                    {{ form.image.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+
+                                <div class="col mb-3">
+                                    {{ form.about_user.label_tag }}
+                                    {{ form.about_user }}
+                                    {{ form.about_user.errors }}
+                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
+                                    <input type="text" class="form-control form-control-lg" id="name"
+                                           value="امیرحسین رضایی">{% endcomment %}
+                                </div>
+
                                 <div class="col mb-3">
                                     {{ form.address.label_tag }}
                                     {{ form.address }}
@@ -81,13 +124,13 @@
                                     <input type="text" class="form-control form-control-lg" id="name"
                                            value="امیرحسین رضایی">{% endcomment %}
                                 </div>
-                                <div class="col mb-3">
-                                    {{ form.email.label_tag }}
-                                    {{ form.email }}
-                                    {{ form.email.errors }}
-                                    {% comment %}<label for="name" class="form-label">نام و نام خانوادگی :</label>
-                                    <input type="text" class="form-control form-control-lg" id="name"
-                                           value="امیرحسین رضایی">{% endcomment %}
+
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <button type="submit" class="btn btn-info text-white font-13 float-end">ثبت
+                                            اطلاعات
+                                        </button>
+                                    </div>
                                 </div>
                                 {% comment %}<div class="col mb-3">
                                     <label for="tell" class="form-label">شماره تلفن همراه : </label>

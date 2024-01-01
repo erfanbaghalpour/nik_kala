@@ -5,7 +5,7 @@ from userauths.models import User
 class EditProfileModelForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'mobile', 'address', 'email']
+        fields = ['first_name', 'last_name', 'mobile', 'address', 'email', 'about_user', 'image']
         widgets = {
             'first_name': forms.TextInput(attrs={
                 # 'class': 'form-label form-label form-control-lg'
@@ -25,7 +25,18 @@ class EditProfileModelForm(forms.ModelForm):
                 'class': 'form-control',
 
             }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control'
+            }),
             'address': forms.Textarea(attrs={
+                # 'class': 'form-label form-label form-control-lg',
+                # 'class': 'personal-info',
+                'class': 'form-control',
+
+                'rows': 3,
+                'id': 'message'
+            }),
+            'about_user': forms.Textarea(attrs={
                 # 'class': 'form-label form-label form-control-lg',
                 # 'class': 'personal-info',
                 'class': 'form-control',
@@ -46,5 +57,7 @@ class EditProfileModelForm(forms.ModelForm):
             'last_name': 'نام خانوادگی',
             'mobile': 'شماره تماس',
             'address': 'آدرس',
+            'about_user': 'درباره شخص',
             'email': 'ایمیل',
+            'image': 'تصویر کاربر',
         }
