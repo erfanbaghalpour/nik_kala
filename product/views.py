@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DetailView
 
-from .models import Product
-from django.http import Http404
+from .models import Product, ProductCategory
+from django.http import Http404, HttpRequest
 
 
 def product_detail(request, slug):
@@ -27,3 +27,11 @@ class ProductDetailView(DetailView):
     #     context['product'] = product_detail
     #     return context
     model = Product
+
+
+def product_categories_component(request: HttpRequest):
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    context = {
+        'categories': product_categories
+    }
+    return render(request, 'product/components/product_categories_component.html', context=context)

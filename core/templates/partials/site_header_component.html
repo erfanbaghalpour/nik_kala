@@ -1,3 +1,5 @@
+{% load thumbnail %}
+{% load render_partial %}
 <header class="w-100 d-none d-lg-block bg-white"><!-- start header -->
     <div class="container">
         <div class="row py-2">
@@ -17,9 +19,21 @@
                         {% comment %}dropdown-menu dropdown-menu-custom{% endcomment %}
                         <ul class=""><!-- start dropdown box -->
                             <li class="d-flex">
-                                <img src="/static/images/avatar.jpg" class="avatar">
+
+                                {% if user.image %}
+                                    {% thumbnail user.image "640x640" quality=99 as im %}
+                                        <img
+                                                src="{{ im.url }}"
+                                                width="{{ im.width }}"
+                                                class="avatar"
+                                                height="{{ im.height }}"/>
+                                    {% endthumbnail %}
+                                {% else %}
+                                    <img src="/static/images/avatar.jpg" class="avatar">
+                                {% endif %}
                                 <div class="ms-2">
-                                    <a href="{% url 'user_panel' %}" class="font-14 text-dark">امیرحسین رضایی</a>
+                                    <a href="{% url 'user_panel' %}"
+                                       class="font-14 text-dark">{{ user.get_full_name }}</a>
                                     <a href="{% url 'user_panel' %}" class="font-12 d-block text-info mt-2">مشاهده حساب
                                         کاربری <i
                                                 class="fa fa-chevron-left align-middle mt-1"></i></a>
@@ -156,26 +170,7 @@
                         </div><!-- end search box -->
 
                         <ul class="mobile-menu-level-1"><!-- start mobile menu level 1 -->
-                            <li class="has-mobile-submenu"><a href="#">دسته بندی محصولات</a>
-
-                                <ul class="mobile-menu-level-2"><!-- start mobile menu level 2 -->
-                                    <li class="has-mobile-submenu-2"><a href="#">کالای دیجیتال</a>
-
-                                        <ul class="mobile-menu-level-3"><!-- start mobile menu level 3 -->
-                                            <li><a href="search.html">گوشی موبایل</a></li>
-                                            <li><a href="search.html">لوازم جانبی گوشی</a></li>
-                                            <li><a href="search.html">تبلت</a></li>
-                                            <li><a href="search.html">دوربین عکاسی</a></li>
-                                        </ul><!-- start mobile menu level 3 -->
-
-                                    </li>
-                                    <li><a href="search.html">زیبایی و سلامت</a></li>
-                                    <li><a href="search.html">مد و پوشاک</a></li>
-                                    <li><a href="search.html">خانه و آشپزخانه</a></li>
-                                    <li><a href="search.html">کتاب و لوازم تحریر</a></li>
-                                </ul><!-- end mobile menu level 2 -->
-
-                            </li>
+                            {% render_partial 'product.views.product_categories_component' %}
                             <li><a href="#">تخفیف‌ها و پیشنهادها</a></li>
                             <li class="has-mobile-submenu"><a href="#">صفحات</a>
 
@@ -203,7 +198,7 @@
                 <img src="/static/images/logo.png" class="img-fluid"><!-- logo -->
             </div>
 
-            <div class="col-4 d-flex align-items-center justify-content-end"><!-- start signup & login dropdown -->
+            {% comment %}<div class="col-4 d-flex align-items-center justify-content-end"><!-- start signup & login dropdown -->
                 <div class="dropdown">
                     <a href="#" data-bs-toggle="dropdown"><i class="fa fa-user-lock signup-login-icon"></i></a>
                     <ul class="dropdown-menu dropdown-menu-custom"><!-- start dropdown box -->
@@ -224,7 +219,7 @@
                         </li>
                     </ul><!-- end dropdown box -->
                 </div><!-- end signup & login dropdown -->
-            </div>
+            </div>{% endcomment %}
 
             <div class="col-1 d-flex align-items-center justify-content-end"><!-- start shopping cart responsive-->
                 <a href="#shopping-cart-responsive" class="position-relative" data-bs-toggle="offcanvas">
@@ -320,7 +315,8 @@
 <nav class="d-none d-lg-block navigation"><!-- start main menu -->
     <div class="container">
         <ul class="main-menu">
-            <li class="has-mega-menu"><a href="#"> دسته بندی محصولات <i class="fa fa-angle-down"></i></a>
+            {% render_partial 'product.views.product_categories_component' %}
+            {% comment %}<li class="has-mega-menu"><a href="#"> دسته بندی محصولات <i class="fa fa-angle-down"></i></a>
                 <ul class="row mega-menu"><!-- start mega menu-->
                     <li class="col-3 mega-menu-box">
                         <ul>
@@ -374,7 +370,7 @@
                                                          class="img-fluid rounded mt-3"></a>
                     </li>
                 </ul><!-- end mega menu-->
-            </li>
+            </li>{% endcomment %}
             <li><a href="search.html">تخفیف‌ها و پیشنهادها</a></li>
             <li class="has-sub-menu"><a href="#">صفحات <i class="fa fa-angle-down"></i></a>
                 <ul class="sub-menu"><!-- start sub menu-->
