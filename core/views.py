@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
+
 from product.models import Product
 from django.views.generic.base import TemplateView
 from django.views import View
@@ -50,6 +52,9 @@ class IndexView(TemplateView):
         if category_name is not None:
             query = query.filter(category__url_title__iexact=category_name)
         return query
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
 
 
 # class HomeView(View):

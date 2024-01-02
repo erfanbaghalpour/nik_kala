@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from .models import Product, ProductCategory
@@ -17,16 +18,28 @@ def product_detail(request, slug):
     return render(request, 'product/product_detail.html', context=context)
 
 
-class ProductDetailView(DetailView):
-    template_name = 'product/product_detail.html'
+# class ProductDetailView(DetailView):
+#     template_name = 'product/product_detail.html'
+#
+#     # def get_context_data(self, **kwargs):
+#     #     context = super(ProductDetailView, self).get_context_data()
+#     #     slug = kwargs['slug']
+#     #     product_detail = get_object_or_404(Product, slug=slug)
+#     #     context['product'] = product_detail
+#     #     return context
+#     model = Product
+#
+#     def get_absolute_url(self):
+#         return reverse('product_detail', kwargs={'slug': self.slug})
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ProductDetailView, self).get_context_data()
-    #     slug = kwargs['slug']
-    #     product_detail = get_object_or_404(Product, slug=slug)
-    #     context['product'] = product_detail
-    #     return context
+class ProductDetailView(DetailView):
     model = Product
+    template_name = 'product/product_detail.html'
+    context_object_name = 'product_detail'
+    slug_url_kwarg = 'slug'
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
 
 
 def product_categories_component(request: HttpRequest):
